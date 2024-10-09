@@ -64,7 +64,7 @@ const Ujian1 = () => {
       
         const updatedUjian = { ...ujianRef.current, jawabanBenar: currentJawabanBenar };
         
-        fetch('http://localhost:4000/selesaiujian', {
+        fetch('https://ujianlah-backend.vercel.app/selesaiujian', {
           method:'POST',
           headers : {
             Accept:'application/form-data',
