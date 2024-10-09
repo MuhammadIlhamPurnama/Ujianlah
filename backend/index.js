@@ -19,7 +19,7 @@ app.listen(port, (error) => {
   }
 });
 
-app.get('/', (req,res) => {
+app.get('/api', (req,res) => {
   res.send('Express is runnning')
 });
 
@@ -42,7 +42,7 @@ const bankSoalSchema = new mongoose.Schema({
 const BankSoal = mongoose.model('BankSoal', bankSoalSchema, 'bankSoal');
 
 // Create all soal API
-app.get('/allsoal', async (req,res) => {
+app.get('/api/allsoal', async (req,res) => {
   let allSoal = await BankSoal.find({});
   console.log('AllSoal fetched');
   res.send(allSoal);
@@ -89,7 +89,7 @@ const usersSchema = new mongoose.Schema({
 const Users = mongoose.model('Users', usersSchema);
 
 // Create Signup API
-app.post('/signup', async (req,res) => {
+app.post('/api/signup', async (req,res) => {
   let checkUser = await Users.findOne({email:req.body.email});
 
   if (checkUser) {
@@ -127,7 +127,7 @@ app.post('/signup', async (req,res) => {
 
 // Create login API
 
-app.post('/login', async (req,res) => {
+app.post('/api/login', async (req,res) => {
   let user = await Users.findOne({email:req.body.email});
 
   if (user) {
@@ -168,35 +168,35 @@ const fetchUser = async (req,res,next) => {
 }
 
 //Create getUserData API
-app.get('/getuserdata',fetchUser, async (req,res) => {
+app.get('/api/getuserdata',fetchUser, async (req,res) => {
   let userData = await Users.findOne({_id:req.user.id});
   res.send(userData)
   console.log('user fetched')
 })
 
 //Create getKeranjangData API
-app.get('/getkeranjangdata',fetchUser, async (req,res) => {
+app.get('/api/getkeranjangdata',fetchUser, async (req,res) => {
   let userData = await Users.findOne({_id:req.user.id});
   res.send(userData.keranjang)
   console.log('keranjang fetched')
 })
 
 //Create getPembayaranData API
-app.get('/pembayarandata',fetchUser, async (req,res) => {
+app.get('/api/pembayarandata',fetchUser, async (req,res) => {
   let userData = await Users.findOne({_id:req.user.id});
   res.send(userData.pembayaran)
   console.log('pembayaran fetched')
 })
 
 //Create getHistoryPembayaran API
-app.get('/historypembayarandata',fetchUser, async (req,res) => {
+app.get('/api/historypembayarandata',fetchUser, async (req,res) => {
   let userData = await Users.findOne({_id:req.user.id});
   res.send(userData.historyPembayaran)
   console.log('History pembayaran fetched')
 })
 
 //Create getUjianSaya API
-app.get('/ujiansayadata',fetchUser, async (req,res) => {
+app.get('/api/ujiansayadata',fetchUser, async (req,res) => {
   let userData = await Users.findOne({_id:req.user.id});
   res.send(userData.ujianSaya)
   console.log('Ujian saya fetched')
@@ -204,7 +204,7 @@ app.get('/ujiansayadata',fetchUser, async (req,res) => {
 
 // Create addToKeranjang API
 
-app.post('/addtokeranjang',fetchUser, async (req,res) => {
+app.post('/api/addtokeranjang',fetchUser, async (req,res) => {
 
   try {
     
@@ -247,7 +247,7 @@ app.post('/addtokeranjang',fetchUser, async (req,res) => {
 
 // Create removeFromKeranjang API
 
-app.post('/removefromkeranjang',fetchUser, async (req,res) => {
+app.post('/api/removefromkeranjang',fetchUser, async (req,res) => {
 
   try {
     
@@ -274,7 +274,7 @@ app.post('/removefromkeranjang',fetchUser, async (req,res) => {
 })
 
 //Create Pembayaran API 
-app.post('/pembayaran',fetchUser, async (req,res) => {
+app.post('/api/pembayaran',fetchUser, async (req,res) => {
 
   try {
     let userData = await Users.findOne({_id:req.user.id})
@@ -300,7 +300,7 @@ app.post('/pembayaran',fetchUser, async (req,res) => {
 
 
 //Create Bayar API
-app.post('/bayar',fetchUser, async (req,res) => {
+app.post('/api/bayar',fetchUser, async (req,res) => {
 
   try {
     let userData = await Users.findOne({_id:req.user.id})
@@ -335,7 +335,7 @@ app.post('/bayar',fetchUser, async (req,res) => {
 })
 
 //Create BatalBayar API
-app.post('/batalbayar',fetchUser, async (req,res) => {
+app.post('/api/batalbayar',fetchUser, async (req,res) => {
   try {
     let userData = await Users.findOne({_id:req.user.id});
 
@@ -358,7 +358,7 @@ app.post('/batalbayar',fetchUser, async (req,res) => {
 })
 
 // Create Selesai ujian API
-app.post('/selesaiujian',fetchUser, async (req,res) => {
+app.post('/api/selesaiujian',fetchUser, async (req,res) => {
 
   try {
     let userData = await Users.findOne({_id:req.user.id});

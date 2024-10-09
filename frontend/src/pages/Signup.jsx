@@ -17,7 +17,7 @@ const Signup = () => {
   const handleSignup = async () => {
 
     let responseData ;
-    await fetch('https://ujianlah.vercel.app/signup', {
+    await fetch('https://ujianlah.vercel.app/api/signup', {
       method: 'POST',
       headers: {
         Accept:'application/form-data',
