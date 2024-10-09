@@ -16,7 +16,7 @@ const Login = () => {
   const handleLogin = async () => {
 
     let responseData ;
-    await fetch("https://ujianlah.vercel.app/api/login", {
+    await fetch("https://ujianlah.vercel.app/login", {
       method:"POST",
       headers: {
         Accept:'application/form-data',

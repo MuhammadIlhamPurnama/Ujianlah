@@ -20,12 +20,12 @@ export const QuestionProvider = ({children}) => {
 
   const updateData = () => {
     // allSoal
-    fetch('https://ujianlah.vercel.app/api/allsoal')
+    fetch('https://ujianlah.vercel.app/allsoal')
     .then((response) => response.json())
     .then((data) => {setAllSoal(data)});
 
     //userData
-    fetch('https://ujianlah.vercel.app/api/getuserdata', {
+    fetch('https://ujianlah.vercel.app/getuserdata', {
       method:'GET',
       headers: {
         Accept:'application/form-data',
@@ -37,7 +37,7 @@ export const QuestionProvider = ({children}) => {
     .then(data => setUserData(data))
 
     // keranjangData
-    fetch('https://ujianlah.vercel.app/api/getkeranjangdata', {
+    fetch('https://ujianlah.vercel.app/getkeranjangdata', {
       method:'GET',
       headers: {
         Accept:'application/form-data',
@@ -49,7 +49,7 @@ export const QuestionProvider = ({children}) => {
     .then((data) => {setKeranjangData(data)});
 
     // pembayaranData
-    fetch('https://ujianlah.vercel.app/api/pembayarandata', {
+    fetch('https://ujianlah.vercel.app/pembayarandata', {
       method:"GET",
       headers:{
         Accept:'application/form-data',
@@ -61,7 +61,7 @@ export const QuestionProvider = ({children}) => {
     .then((data) => setPembayaranData(data))
 
     //  historyPembayaranData
-    fetch('https://ujianlah.vercel.app/api/historypembayarandata', {
+    fetch('https://ujianlah.vercel.app/historypembayarandata', {
       method:"GET",
       headers:{
         Accept:'application/form-data',
@@ -73,7 +73,7 @@ export const QuestionProvider = ({children}) => {
     .then((data) => setHistoryPembayaranData(data))
 
     // ujian saya
-    fetch('https://ujianlah.vercel.app/api/ujiansayadata', {
+    fetch('https://ujianlah.vercel.app/ujiansayadata', {
       method:"GET",
       headers:{
         Accept:'application/form-data',
@@ -91,7 +91,7 @@ export const QuestionProvider = ({children}) => {
 
   const handleBatalBayar = (index) => {
     if(localStorage.getItem('auth-token')) {
-      fetch('https://ujianlah.vercel.app/api/batalbayar', {
+      fetch('https://ujianlah.vercel.app/batalbayar', {
         method:'POST',
         headers: {
           Accept:'application/form-data',
@@ -116,7 +116,7 @@ export const QuestionProvider = ({children}) => {
 
   const handleBayar = (index) => {
     if(localStorage.getItem('auth-token')) {
-      fetch('https://ujianlah.vercel.app/api/bayar', {
+      fetch('https://ujianlah.vercel.app/bayar', {
         method:'POST',
         headers: {
           Accept:'application/form-data',
@@ -141,7 +141,7 @@ export const QuestionProvider = ({children}) => {
 
   const handlePembayaran = () => {
     if(localStorage.getItem('auth-token')) {
-      fetch('https://ujianlah.vercel.app/api/pembayaran', {
+      fetch('https://ujianlah.vercel.app/pembayaran', {
         method:'POST',
         headers: {
           Acccept:'application/form-data',
@@ -166,7 +166,7 @@ export const QuestionProvider = ({children}) => {
   const addToKeranjang = (ujian) => {
 
     if (localStorage.getItem('auth-token')) {
-      fetch('https://ujianlah.vercel.app/api/addtokeranjang', {
+      fetch('https://ujianlah.vercel.app/addtokeranjang', {
         method:"POST",
         headers: {
           Accept:"application/form-data",
@@ -192,7 +192,7 @@ export const QuestionProvider = ({children}) => {
 
   const removeFromKeranjang = (ujian) => {
     if (localStorage.getItem('auth-token')) {
-      fetch('https://ujianlah.vercel.app/api/removefromkeranjang', {
+      fetch('https://ujianlah.vercel.app/removefromkeranjang', {
         method:"POST",
         headers: {
           Accept:"application/form-data",
