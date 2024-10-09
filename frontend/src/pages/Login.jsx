@@ -16,7 +16,7 @@ const Login = () => {
   const handleLogin = async () => {
 
     let responseData ;
-    await fetch("http://localhost:4000/login", {
+    await fetch("https://ujianlah.vercel.app/login", {
       method:"POST",
       headers: {
         Accept:'application/form-data',
