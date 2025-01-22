@@ -7,28 +7,29 @@ import Answer from '../components/Ujian/Answer.jsx'
 import QuestionNumber from '../components/Ujian/QuestionNumber.jsx'
 import TimeCounter from '../components/Ujian/TimeCounter.jsx'
 import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAllSoal, selesaiUjian } from '../store/slices/ujianSlice.js'
 
 
 const Ujian1 = () => {
-  
   const [ujian, setUjian] = useState({
     Title:'',
     ujianId:'',
     waktu:0,
     Soal:[],
     jawabanBenar:0,
-  })
-
+  });
   const intervalRef = useRef(null);
   const ujianRef = useRef(ujian);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const {ujianId} = useParams();
+  const currentQuestion = ujian.Soal[questionIndex];
+  const dispatch = useDispatch();
+  const {allSoal} = useSelector((state) => state.ujian);
 
   useEffect(() => {
     ujianRef.current = ujian;
   }, [ujian]);
-
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const {ujianId} = useParams();
-  const allSoal = useContext(QuestionContext).allSoal;
 
   const handleNext = () => {
     if (questionIndex < ujian.Soal.length - 1) {
@@ -46,57 +47,50 @@ const Ujian1 = () => {
     }
   }
 
+  const handleManualSubmit = () => {
+    clearTimeout(intervalRef.current); 
+    handleSelesai();
+  };
+
   const handleSelesai = () => {
-    if(localStorage.getItem('auth-token')) {
-
+ 
+    if (localStorage.getItem('auth-token')) {
       let currentJawabanBenar = 0;
-
-      ujianRef.current.Soal.map((soal) => {
+  
+      ujianRef.current.Soal.forEach((soal) => {
         if (soal.currentAnswer === soal.Jawaban) {
-          console.log('benar');
           currentJawabanBenar += 1;
-          
         }
-      })
-
-      console.log('Total Correct Answers:', currentJawabanBenar);
-
-      
-        const updatedUjian = { ...ujianRef.current, jawabanBenar: currentJawabanBenar };
-        
-        fetch('https://ujianlah-backend.vercel.app/selesaiujian', {
-          method:'POST',
-          headers : {
-            Accept:'application/form-data',
-            'auth-token':`${localStorage.getItem('auth-token')}`,
-            'Content-Type':'application/json'
-          },
-          body:JSON.stringify({ujian:updatedUjian})
-        })
-        .then(response => response.json())
-        .then(data => {
-          alert(data.message);
-          clearInterval(intervalRef.current); 
+      });
+  
+      const updatedUjian = { ...ujianRef.current, jawabanBenar: currentJawabanBenar };
+  
+      // Dispatch thunk selesaiUjian
+      dispatch(selesaiUjian(updatedUjian)).then((result) => {
+        if (result.meta.requestStatus === 'fulfilled') {
+          alert(result.payload.message);
+          clearInterval(intervalRef.current);
           window.location.href = '/platform/ujiansaya';
-          
-        })
-      
-
+        } else if (result.meta.requestStatus === 'rejected') {
+          alert(`Error: ${result.payload}`);
+        }
+      });
+    } else {
+      window.location.href = '/login';
     }
-  }
+  };
+
+
 
   useEffect(() => {
     intervalRef.current = setTimeout(() => {
       handleSelesai();
     }, (10 * 60 + 5) * 1000); // 10 minutes and 5 seconds
 
+    dispatch(fetchAllSoal());
+
     return () => clearTimeout(intervalRef.current); 
   }, []);
-
-  const handleManualSubmit = () => {
-    clearTimeout(intervalRef.current); 
-    handleSelesai();
-  };
 
 
   useEffect(() => {
@@ -120,8 +114,6 @@ const Ujian1 = () => {
     findUjian();
   }, [ujianId, allSoal])
   
-  const currentQuestion = ujian.Soal[questionIndex];
-
   useEffect(() => {
     function adjustHeroMargin() {
       const navbar = document.getElementById('navbar');
@@ -282,7 +274,7 @@ const Ujian1 = () => {
             </div>
           </div>
           <div className='flex text-center'>
-            <button className='w-full bg-gray-400 text-white p-2 rounded-md font-semibold' onClick={handleManualSubmit}>Selesai</button>
+            <button className='w-full bg-gray-400 text-white p-2 rounded-md font-semibold' onClick={() => {handleManualSubmit(ujianRef, intervalRef)}}>Selesai</button>
           </div>
         </div>
       </div>
