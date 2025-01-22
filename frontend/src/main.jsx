@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { QuestionProvider } from './data/questions.jsx'
+import { Provider } from "react-redux";
+import { store } from "./store/index";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <QuestionProvider>
-      <App />
-    </QuestionProvider>
+    <Provider store={store}>
+      <QuestionProvider>
+        <App />
+      </QuestionProvider>
+    </Provider>
   </React.StrictMode>,
 )

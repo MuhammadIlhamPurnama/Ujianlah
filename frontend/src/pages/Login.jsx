@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import ujianlahLogo from '../images/Ujianlah.png'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { login } from '../store/slices/authSlice'
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     email:"",
     password:""
@@ -13,25 +17,11 @@ const Login = () => {
     
   }
 
-  const handleLogin = async () => {
-
-    let responseData ;
-    await fetch("https://ujianlah-backend.vercel.app/login", {
-      method:"POST",
-      headers: {
-        Accept:'application/form-data',
-        'Content-Type':"application/json"
-      },
-      body: JSON.stringify(formData)
-    }).then((response) => response.json()).then((data) => responseData = data)
-
-    if(responseData.success) {
-      localStorage.setItem('auth-token', responseData.token);
-      window.location.replace('/platform');
-    } else {
-      alert(responseData.errors)
-    }
+  const handleLogin = (e) => {
+      e.preventDefault();
+      dispatch(login(formData))
   }
+
 
   return (
     <div>
@@ -50,7 +40,7 @@ const Login = () => {
             <input className='w-full border rounded-sm mt-2 p-2 outline-none' name='password' onChange={handleChange} value={formData.password} placeholder='password' type="password" />
           </div>
           <div>
-            <button className='w-full p-2 bg-[#35b486] rounded-full mt-5 text-white font-bold' onClick={handleLogin}>Masuk</button>
+            <button className='w-full p-2 bg-[#35b486] rounded-full mt-5 text-white font-bold' onClick={(e) => {handleLogin(e)}}>Masuk</button>
           </div>
           <div className='text-center'>
             <p>Belum memiliki akun? <span className='text-[#35b486]'><Link to={'/signup'}>Daftar</Link></span></p>

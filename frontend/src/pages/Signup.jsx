@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import ujianlahLogo from '../images/Ujianlah.png'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { register } from '../store/slices/authSlice'
 
 const Signup = () => {
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     nama:"",
     email:"",
@@ -14,24 +18,9 @@ const Signup = () => {
    
   }
 
-  const handleSignup = async () => {
-
-    let responseData ;
-    await fetch('https://ujianlah-backend.vercel.app/signup', {
-      method: 'POST',
-      headers: {
-        Accept:'application/form-data',
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify(formData)
-    }).then((response) => response.json()).then((data) => {responseData=data})
-
-    if (responseData.success) {
-      localStorage.setItem('auth-token', responseData.token)
-      window.location.replace('/platform');
-    } else {
-      alert(responseData.errors)
-    }
+  const handleSignup = (e) => {
+      e.preventDefault();
+      dispatch(register(formData))
   }
 
 
