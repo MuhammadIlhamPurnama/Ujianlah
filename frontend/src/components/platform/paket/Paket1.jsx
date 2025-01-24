@@ -25,7 +25,7 @@ const Paket1 = () => {
       })
   }, [])
 
-  const allSoalLPDP = allSoal.filter((ujian) => ujian.type === 'LPDP' ) ;
+  const allSoalLPDP = allSoal?.filter((ujian) => ujian.type === 'LPDP' ) ;
   const setModalData = useContext(QuestionContext).setModalData;
   const modalData = useContext(QuestionContext).modalData;
 

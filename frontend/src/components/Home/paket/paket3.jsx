@@ -13,7 +13,7 @@ const paket1 = () => {
    useEffect(() => {
     dispatch(fetchAllSoal())
   }, [])
-  const bankSoalCPNS = allSoal.filter((ujian) => ujian.type === 'CPNS' );
+  const bankSoalCPNS = allSoal?.filter((ujian) => ujian.type === 'CPNS' );
 
   const responsive = {
     superLargeDesktop: {

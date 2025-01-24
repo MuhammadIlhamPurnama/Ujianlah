@@ -25,7 +25,7 @@ const Paket2 = () => {
       })
   }, [])
 
-  const allSoalBUMN = allSoal.filter((ujian) => ujian.type === 'BUMN') ;
+  const allSoalBUMN = allSoal?.filter((ujian) => ujian.type === 'BUMN') ;
   const setModalData = useContext(QuestionContext).setModalData;
   const modalData = useContext(QuestionContext).modalData;
 

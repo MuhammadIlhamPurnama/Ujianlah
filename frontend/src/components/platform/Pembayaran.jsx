@@ -20,7 +20,6 @@ const Dashboard = () => {
     dispatch(fetchUserData())
     .unwrap()
     .then((data) => {
-      console.log(data);
       setUserData(data);
     })
     .catch((err) => {
@@ -59,34 +58,10 @@ const Dashboard = () => {
     document.body.classList.remove('overflow-hidden')
   }
 
-  function handleCart() {
-    const cartLayer = document.getElementById('cart-layer');
-    const cartOverlay = document.getElementById('cart-overlay');
-    
-    cartLayer.style.transform = 'translateX(0)';
-    cartOverlay.style.transform = 'translateX(0)';
-    setKeranjangOpened(true)
-  }
-
-  function handleClose() {
-    const cartLayer = document.getElementById('cart-layer');
-    const cartOverlay = document.getElementById('cart-overlay');
-
-    cartLayer.style.transform = 'translateX(1000px)'
-    cartOverlay.style.transform = 'translateX(1500px)';
-    setKeranjangOpened(false);
-  }
-
   function handleMenu() {
     const menuLayer = document.getElementById('menu-layer');
 
     menuLayer.style.transform = 'translateX(0)';
-  }
-
-  function handleCloseMenu() {
-    const menuLayer = document.getElementById('menu-layer');
-
-    menuLayer.style.transform = 'translateX(1000px)';
   }
 
   return (

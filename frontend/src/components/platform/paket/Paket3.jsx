@@ -25,7 +25,7 @@ const Paket3 = () => {
       })
   }, [])
 
-  const allSoalCPNS = allSoal.filter((ujian) => ujian.type === 'CPNS' ) ;
+  const allSoalCPNS = allSoal?.filter((ujian) => ujian.type === 'CPNS' ) ;
   const setModalData = useContext(QuestionContext).setModalData;
   const modalData = useContext(QuestionContext).modalData;
 

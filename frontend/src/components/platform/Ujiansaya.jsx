@@ -29,7 +29,6 @@ const Dashboard = () => {
     dispatch(fetchUserData())
     .unwrap()
     .then((data) => {
-      console.log(data);
       setUserData(data);
     })
     .catch((err) => {

@@ -13,7 +13,7 @@ const paket1 = () => {
    useEffect(() => {
     dispatch(fetchAllSoal())
   }, [])
-  const bankSoalBUMN = allSoal.filter((ujian) => ujian.type === 'BUMN');
+  const bankSoalBUMN = allSoal?.filter((ujian) => ujian.type === 'BUMN');
 
 
   const responsive = {

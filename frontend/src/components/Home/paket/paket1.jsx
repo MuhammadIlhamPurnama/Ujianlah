@@ -14,7 +14,7 @@ const paket1 = () => {
     dispatch(fetchAllSoal())
   }, [])
 
-  const bankSoalLPDP = allSoal.filter((ujian) => ujian.type === 'LPDP');
+  const bankSoalLPDP = allSoal?.filter((ujian) => ujian.type === 'LPDP');
 
   const responsive = {
     superLargeDesktop: {
