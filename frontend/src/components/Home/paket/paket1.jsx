@@ -14,6 +14,8 @@ const paket1 = () => {
     dispatch(fetchSoalLPDP())
   }, [])
 
+  console.log(soalLPDP)
+
   const responsive = {
     superLargeDesktop: {
       

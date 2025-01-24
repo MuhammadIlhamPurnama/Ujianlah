@@ -119,7 +119,7 @@ const ujianSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchSoalLPDP.fulfilled, (state, action) => {
-        state.soalLPDP = action.payload;
+        state.soalLPDP = action.payload || [];
         state.loading = false;
       })
       .addCase(fetchSoalLPDP.rejected, (state, action) => {
