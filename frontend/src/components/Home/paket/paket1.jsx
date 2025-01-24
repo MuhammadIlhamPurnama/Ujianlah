@@ -49,7 +49,8 @@ const paket1 = () => {
         </div>
 
         {loading ? (<div>Loading...</div>) 
-          : (<Carousel responsive={responsive} >
+          : soalLPDP && soalLPDP.length > 0 
+          ? (<Carousel responsive={responsive} >
           
                 {soalLPDP?.map((ujian) => {
 
@@ -80,6 +81,9 @@ const paket1 = () => {
                 })}
           
             </Carousel>)
+          : (
+            <div>No data available.</div>
+          )
         }
       </div>
   )
