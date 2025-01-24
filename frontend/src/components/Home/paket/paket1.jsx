@@ -12,7 +12,7 @@ const paket1 = () => {
   const {soalLPDP, loading} = useSelector((state) => state.ujian)
   useEffect(() => {
     dispatch(fetchSoalLPDP())
-  }, [loading])
+  }, [])
 
   const responsive = {
     superLargeDesktop: {
@@ -47,36 +47,40 @@ const paket1 = () => {
         <div className='mb-5'>
           <h1 className='font-bold text-xl'>LPDP</h1>
         </div>
-        <Carousel responsive={responsive} >
-          {soalLPDP?.map((ujian) => {
 
-              return <div key={ujian.ujianId} className='border p-4 rounded-md mr-5 flex flex-col gap-3'>
-              <div>
-                <button className='bg-orange-400 py-1 px-3 rounded-md text-white font-bold'>{ujian.type}</button>
-              </div>
-              <div>
-                <h1 className='font-bold text-xl leading-6'>{ujian.Title}</h1>
-              </div>
-              <div>
-                <div className='flex items-center gap-3 mb-1'>
-                  <img className='h-4 inlin' src={clock} alt="" />
-                  <p>Waktu : {ujian.waktu / 60000} menit</p>
-                </div>
-                <div className='flex items-center gap-3'>
-                  <img className='h-4' src={document} alt="" />
-                  <p>Soal : {ujian.Soal.length} soal</p>
-                </div>
-              </div>
-              <div className='mt-2 flex text-center'>
-                <Link to={localStorage.getItem('auth-token')?'/platform':'/login'} className='flex w-full'>
-                  <button className='w-full bg-green-600 hover:bg-green-700 duration-500  p-1 rounded-md font-bold text-white cursor-pointer'>Coba Ujian</button>
-                </Link>
-              </div>
-            </div>
+        {loading ? (<div>Loading...</div>) 
+          : (<Carousel responsive={responsive} >
           
-          })}
+                {soalLPDP?.map((ujian) => {
+
+                    return <div key={ujian.ujianId} className='border p-4 rounded-md mr-5 flex flex-col gap-3'>
+                    <div>
+                      <button className='bg-orange-400 py-1 px-3 rounded-md text-white font-bold'>{ujian.type}</button>
+                    </div>
+                    <div>
+                      <h1 className='font-bold text-xl leading-6'>{ujian.Title}</h1>
+                    </div>
+                    <div>
+                      <div className='flex items-center gap-3 mb-1'>
+                        <img className='h-4 inlin' src={clock} alt="" />
+                        <p>Waktu : {ujian.waktu / 60000} menit</p>
+                      </div>
+                      <div className='flex items-center gap-3'>
+                        <img className='h-4' src={document} alt="" />
+                        <p>Soal : {ujian.Soal.length} soal</p>
+                      </div>
+                    </div>
+                    <div className='mt-2 flex text-center'>
+                      <Link to={localStorage.getItem('auth-token')?'/platform':'/login'} className='flex w-full'>
+                        <button className='w-full bg-green-600 hover:bg-green-700 duration-500  p-1 rounded-md font-bold text-white cursor-pointer'>Coba Ujian</button>
+                      </Link>
+                    </div>
+                  </div>
+                
+                })}
           
-        </Carousel> 
+            </Carousel>)
+        }
       </div>
   )
 }
