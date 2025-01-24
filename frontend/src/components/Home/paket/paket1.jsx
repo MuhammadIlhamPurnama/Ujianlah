@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import clock from '../../../icons/clock.png';
@@ -9,9 +9,14 @@ import { fetchSoalLPDP } from '../../../store/slices/ujianSlice';
 
 const paket1 = () => {
   const dispatch = useDispatch();
-  const {soalLPDP} = useSelector((state) => state.ujian)
-   useEffect(() => {
+  // const {soalLPDP} = useSelector((state) => state.ujian)
+  const [soalLPDP, setSoalLPDP] = useState([]);
+  useEffect(() => {
     dispatch(fetchSoalLPDP())
+      .unwrap()
+      .then((data) => {
+        setSoalLPDP([...data])
+      })
   }, [])
 
   const responsive = {
