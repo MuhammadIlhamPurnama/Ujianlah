@@ -9,18 +9,12 @@ import { fetchAllSoal, fetchSoalLPDP } from '../../../store/slices/ujianSlice';
 
 const paket1 = () => {
   const dispatch = useDispatch();
-  const { loading} = useSelector((state) => state.ujian)
-  const [allSoal, setAllSoal] = useState([])
+  const { soalLPDP , loading} = useSelector((state) => state.ujian)
 
   useEffect(() => {
-    dispatch(fetchAllSoal())
-      .unwrap()
-      .then((data) => {
-        setAllSoal(data)
-      })
-  }, [])
-
-  const soalLPDP = allSoal.filter((ujian) => ujian.type === 'LPDP');
+    dispatch(fetchSoalLPDP())
+  
+  }, [dispatch])
 
   const responsive = {
     superLargeDesktop: {
@@ -57,7 +51,7 @@ const paket1 = () => {
         </div>
 
         {loading ? (<div>Loading...</div>) 
-          : soalLPDP && soalLPDP.length > 0 
+          : soalLPDP?.length > 0 
           ? (<Carousel responsive={responsive} >
           
                 {soalLPDP?.map((ujian) => {

@@ -7,17 +7,17 @@ import done from '../../../icons/done.png';
 import { QuestionContext } from '../../../data/questions';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllSoal } from '../../../store/slices/ujianSlice';
+import { fetchAllSoal, fetchSoalLPDP } from '../../../store/slices/ujianSlice';
 import { fetchUserData } from '../../../store/slices/userSlice';
 
 const Paket1 = () => {
   const dispatch = useDispatch();
-  const { allSoal } = useSelector((state) => state.ujian);
+  const {  soalLPDP } = useSelector((state) => state.ujian);
   const [ujianUserData, setUjianUserData] = useState([])
   
 
   useEffect(() => {
-    dispatch(fetchAllSoal())
+    dispatch(fetchSoalLPDP())
     dispatch(fetchUserData())
       .unwrap()
       .then((data) => {
@@ -25,7 +25,7 @@ const Paket1 = () => {
       })
   }, [])
 
-  const allSoalLPDP = allSoal?.filter((ujian) => ujian.type === 'LPDP' ) ;
+  // const allSoalLPDP = allSoal?.filter((ujian) => ujian.type === 'LPDP' ) ;
   const setModalData = useContext(QuestionContext).setModalData;
   const modalData = useContext(QuestionContext).modalData;
 
@@ -68,7 +68,7 @@ const Paket1 = () => {
           <h1 className='font-bold text-xl'>LPDP</h1>
         </div>
         <Carousel responsive={responsive} >
-          {allSoalLPDP.map((ujian) => {
+          {soalLPDP?.map((ujian) => {
             const exist = ujianUserData.some((us) => ujian.ujianId === us.ujianId);
 
             if (!exist) {

@@ -7,17 +7,17 @@ import done from '../../../icons/done.png';
 import { QuestionContext } from '../../../data/questions';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllSoal } from '../../../store/slices/ujianSlice';
+import { fetchAllSoal, fetchSoalBUMN } from '../../../store/slices/ujianSlice';
 import { fetchUserData } from '../../../store/slices/userSlice';
 
 
 const Paket2 = () => {
   const dispatch = useDispatch();
-  const { allSoal } = useSelector((state) => state.ujian);
+  const { soalBUMN } = useSelector((state) => state.ujian);
   const [ujianUserData, setUjianUserData] = useState([])
 
   useEffect(() => {
-    dispatch(fetchAllSoal())
+    dispatch(fetchSoalBUMN())
     dispatch(fetchUserData())
       .unwrap()
       .then((data) => {
@@ -25,7 +25,7 @@ const Paket2 = () => {
       })
   }, [])
 
-  const allSoalBUMN = allSoal?.filter((ujian) => ujian.type === 'BUMN') ;
+  // const allSoalBUMN = allSoal?.filter((ujian) => ujian.type === 'BUMN') ;
   const setModalData = useContext(QuestionContext).setModalData;
   const modalData = useContext(QuestionContext).modalData;
 
@@ -68,7 +68,7 @@ const Paket2 = () => {
           <h1 className='font-bold text-xl'>BUMN</h1>
         </div>
         <Carousel responsive={responsive} >
-        {allSoalBUMN.map((ujian) => {
+        {soalBUMN?.map((ujian) => {
           const exist = ujianUserData.some((us) => us.ujianId === ujian.ujianId);
 
           if (!exist) {

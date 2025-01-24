@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ujianlah from '../../images/Ujianlah-landscape.png';
 import dashboardImage from '../../icons/dashboard.png';
 import testImage from '../../icons/test.png';
 import paymentImage from '../../icons/payment.png';
 import cartImage from '../../icons/cart.png';
 import photoProfile from '../../images/profile.jpg';
+import { useLocation } from 'react-router-dom';
 
 
 const Sidebar = ({userData, setKeranjangOpened}) => {
+  const location = useLocation();
+
   function handleCart() {
     const cartLayer = document.getElementById('cart-layer');
     const cartOverlay = document.getElementById('cart-overlay');
@@ -26,15 +29,15 @@ const Sidebar = ({userData, setKeranjangOpened}) => {
             <img src={ujianlah} alt="ujianlah-logo" className='h-8' />
           </div>
           <div>
-            <a className='p-2 px-4 mt-3 rounded-md bg-green-500/30 hover:bg-slate-200 cursor-pointer flex gap-3' href='/platform'>
+            <a className={`p-2 px-4 mt-3 rounded-md  hover:bg-slate-200 cursor-pointer flex gap-3 ${location.pathname == '/platform' ? 'bg-green-500/30' : ''}`} href='/platform'>
               <img className='h-6' src={dashboardImage} alt="dashboard-icon" />
               <h2 className='font-semibold'>Dashboard</h2>
             </a>
-            <a className='p-2 px-4 mt-3 rounded-md hover:bg-slate-200 cursor-pointer flex gap-3' href='/platform/ujiansaya'>
+            <a className={`p-2 px-4 mt-3 rounded-md hover:bg-slate-200 cursor-pointer flex gap-3 ${location.pathname == '/platform/ujiansaya' ? 'bg-green-500/30' : ''}`} href='/platform/ujiansaya'>
               <img className='h-6' src={testImage} alt="test-icon" />
               <h2 className='font-semibold'>Ujian Saya</h2>
             </a>
-            <a className='p-2 px-4 mt-3 rounded-md hover:bg-slate-200 cursor-pointer flex gap-3' href='/platform/pembayaran'>
+            <a className={`p-2 px-4 mt-3 rounded-md hover:bg-slate-200 cursor-pointer flex gap-3 ${location.pathname == '/platform/pembayaran' ? 'bg-green-500/30' : ''}`} href='/platform/pembayaran'>
               <img className='h-6' src={paymentImage} alt="payment-icon" />
               <h2 className='font-semibold'>Pembayaran</h2>
             </a>

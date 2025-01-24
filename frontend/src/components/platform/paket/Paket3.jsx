@@ -7,17 +7,16 @@ import done from '../../../icons/done.png';
 import { QuestionContext } from '../../../data/questions';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllSoal } from '../../../store/slices/ujianSlice';
+import { fetchAllSoal, fetchSoalCPNS } from '../../../store/slices/ujianSlice';
 import { fetchUserData } from '../../../store/slices/userSlice';
 
 const Paket3 = () => {
   const dispatch = useDispatch();
-  const { allSoal } = useSelector((state) => state.ujian);
+  const { soalCPNS } = useSelector((state) => state.ujian);
   const [ujianUserData, setUjianUserData] = useState([])
-  // console.log(userData)
 
   useEffect(() => {
-    dispatch(fetchAllSoal())
+    dispatch(fetchSoalCPNS())
     dispatch(fetchUserData())
       .unwrap()
       .then((data) => {
@@ -25,7 +24,7 @@ const Paket3 = () => {
       })
   }, [])
 
-  const allSoalCPNS = allSoal?.filter((ujian) => ujian.type === 'CPNS' ) ;
+  // const allSoalCPNS = allSoal?.filter((ujian) => ujian.type === 'CPNS' ) ;
   const setModalData = useContext(QuestionContext).setModalData;
   const modalData = useContext(QuestionContext).modalData;
 
@@ -68,8 +67,8 @@ const Paket3 = () => {
           <h1 className='font-bold text-xl'>CPNS</h1>
         </div>
         <Carousel responsive={responsive} >
-          {allSoalCPNS.map((ujian) => {
-            const exist = ujianUserData.some((us) => us.ujianId === ujian.ujianId);
+          {soalCPNS?.map((ujian) => {
+            const exist = ujianUserData?.some((us) => us.ujianId === ujian.ujianId);
 
             if (!exist) {
               return <div key={ujian.ujianId} className='border p-4 rounded-md mr-5 flex flex-col gap-3'>
