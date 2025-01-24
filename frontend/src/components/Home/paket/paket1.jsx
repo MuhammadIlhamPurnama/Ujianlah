@@ -9,10 +9,10 @@ import { fetchSoalLPDP } from '../../../store/slices/ujianSlice';
 
 const paket1 = () => {
   const dispatch = useDispatch();
-  const {soalLPDP} = useSelector((state) => state.ujian)
+  const {soalLPDP, loading} = useSelector((state) => state.ujian)
   useEffect(() => {
     dispatch(fetchSoalLPDP())
-  }, [dispatch])
+  }, [loading])
 
   const responsive = {
     superLargeDesktop: {
