@@ -225,7 +225,7 @@ app.post('/addtokeranjang',fetchUser, async (req,res) => {
     let ujianInKeranjang = userData.keranjang.find(item => item.ujianId === ujianId);
 
     if (ujianInKeranjang) {
-      return res.status(400).json({success: false, message: 'Soal sudah ada di keranjang'});
+      return res.status(200).json({success: false, message: 'Soal sudah ada di keranjang'});
     } else {
       const newUjian = {
         Title:req.body.Title,
