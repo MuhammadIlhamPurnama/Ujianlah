@@ -5,16 +5,14 @@ import clock from '../../../icons/clock.png';
 import document from '../../../icons/document.png';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllSoal } from '../../../store/slices/ujianSlice';
+import { fetchSoalBUMN } from '../../../store/slices/ujianSlice';
 
 const paket1 = () => {
   const dispatch = useDispatch();
-  const {allSoal} = useSelector((state) => state.ujian)
+  const {soalBUMN} = useSelector((state) => state.ujian)
    useEffect(() => {
-    dispatch(fetchAllSoal())
+    dispatch(fetchSoalBUMN())
   }, [])
-  const bankSoalBUMN = allSoal?.filter((ujian) => ujian.type === 'BUMN');
-
 
   const responsive = {
     superLargeDesktop: {
@@ -50,7 +48,7 @@ const paket1 = () => {
           <h1 className='font-bold text-xl'>BUMN</h1>
         </div>
         <Carousel responsive={responsive} >
-          {bankSoalBUMN.map((ujian) => {
+          {soalBUMN?.map((ujian) => {
             
               return <div key={ujian.ujianId} className='border p-4 rounded-md mr-5 flex flex-col gap-3'>
               <div>

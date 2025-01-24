@@ -14,7 +14,54 @@ export const fetchAllSoal = createAsyncThunk(
   }
 );
 
-// Thunk untuk mengirim data ujian ke backend
+export const fetchSoalLPDP = createAsyncThunk(
+  "ujian/soalLPDP",
+  async (_, {rejectWithValue}) => {
+    try {
+      const response = await axiosInstance.get("/allsoal");
+
+      const soalLPDP = response.data.filter((ujian) => ujian.type === 'LPDP');
+
+      return soalLPDP; 
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message); 
+
+    }
+  }
+)
+
+export const fetchSoalBUMN = createAsyncThunk(
+  "ujian/soalBUMN",
+  async (_, {rejectWithValue}) => {
+    try {
+      const response = await axiosInstance.get("/allsoal");
+
+      const soalBUMN = response.data.filter((ujian) => ujian.type === 'BUMN');
+
+      return soalBUMN; 
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message); 
+
+    }
+  }
+)
+
+export const fetchSoalCPNS = createAsyncThunk(
+  "ujian/soalCPNS",
+  async (_, {rejectWithValue}) => {
+    try {
+      const response = await axiosInstance.get("/allsoal");
+
+      const soalCPNS = response.data.filter((ujian) => ujian.type === 'CPNS');
+
+      return soalCPNS; 
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message); 
+
+    }
+  }
+)
+
 export const selesaiUjian = createAsyncThunk(
   'ujian/selesaiUjian',
   async (ujian, { rejectWithValue }) => {
@@ -45,6 +92,9 @@ const ujianSlice = createSlice({
   name: 'ujian',
   initialState: {
     allSoal: [],
+    soalLPDP: [],
+    soalBUMN: [],
+    soalCPNS: [],
     loading: false,
     success: null,
     error: null,
@@ -61,6 +111,42 @@ const ujianSlice = createSlice({
         state.allSoal = action.payload;
       })
       .addCase(fetchAllSoal.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchSoalLPDP.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchSoalLPDP.fulfilled, (state, action) => {
+        state.loading = false;
+        state.soalLPDP = action.payload;
+      })
+      .addCase(fetchSoalLPDP.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchSoalBUMN.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchSoalBUMN.fulfilled, (state, action) => {
+        state.loading = false;
+        state.soalBUMN = action.payload;
+      })
+      .addCase(fetchSoalBUMN.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchSoalCPNS.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchSoalCPNS.fulfilled, (state, action) => {
+        state.loading = false;
+        state.soalCPNS = action.payload;
+      })
+      .addCase(fetchSoalCPNS.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
