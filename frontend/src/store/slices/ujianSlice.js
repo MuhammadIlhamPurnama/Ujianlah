@@ -119,12 +119,12 @@ const ujianSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchSoalLPDP.fulfilled, (state, action) => {
-        state.loading = false;
         state.soalLPDP = action.payload;
+        state.loading = false;
       })
       .addCase(fetchSoalLPDP.rejected, (state, action) => {
-        state.loading = false;
         state.error = action.payload;
+        state.loading = false;
       })
       .addCase(fetchSoalBUMN.pending, (state) => {
         state.loading = true;
@@ -143,8 +143,8 @@ const ujianSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchSoalCPNS.fulfilled, (state, action) => {
-        state.loading = false;
         state.soalCPNS = action.payload;
+        state.loading = false;
       })
       .addCase(fetchSoalCPNS.rejected, (state, action) => {
         state.loading = false;
