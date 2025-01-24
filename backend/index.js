@@ -8,13 +8,13 @@ const MDB_KEY = process.env.MDB_KEY;
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const cors = require("cors")
 
-const corsOptions = {
-  origin: "http://localhost:5174", // Allow your frontend origin
-  methods: ["GET", "POST"], // Specify allowed methods
-};
+// const corsOptions = {
+//   origin: "http://localhost:5174", // Allow your frontend origin
+//   methods: ["GET", "POST"], // Specify allowed methods
+// };
 
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.listen(port, (error) => {
   if (!error) {
