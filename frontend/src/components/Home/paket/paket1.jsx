@@ -1,16 +1,20 @@
-import React, {useContext} from 'react'
+import React, {useEffect} from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import clock from '../../../icons/clock.png';
 import document from '../../../icons/document.png';
-import { QuestionContext } from '../../../data/questions';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllSoal } from '../../../store/slices/ujianSlice';
 
 const paket1 = () => {
-  
-  const bankSoal = useContext(QuestionContext).bankSoal;
-  const bankSoalLPDP = bankSoal.filter((ujian) => ujian.type === 'LPDP');
+  const dispatch = useDispatch();
+  const {allSoal} = useSelector((state) => state.ujian)
+   useEffect(() => {
+    dispatch(fetchAllSoal())
+  }, [])
 
+  const bankSoalLPDP = allSoal.filter((ujian) => ujian.type === 'LPDP');
 
   const responsive = {
     superLargeDesktop: {

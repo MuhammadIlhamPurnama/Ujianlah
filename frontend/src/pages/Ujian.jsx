@@ -172,7 +172,10 @@ const Ujian1 = () => {
                       // dispatch({type: "SELECT_ANSWER", payload: answer});
                       setUjian(prevUjian => {
                         const updatedSoal = [...prevUjian.Soal];
-                        updatedSoal[questionIndex].currentAnswer = answer;
+                        updatedSoal[questionIndex] = {
+                          ...updatedSoal[questionIndex], // Spread the properties of the question object
+                          currentAnswer: answer, // Update `currentAnswer`
+                        };
                         
                         return {
                           ...prevUjian,

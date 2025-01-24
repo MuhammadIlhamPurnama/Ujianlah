@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import document from '../../../icons/document.png';
@@ -6,14 +6,28 @@ import clock from '../../../icons/clock.png';
 import done from '../../../icons/done.png';
 import { QuestionContext } from '../../../data/questions';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllSoal } from '../../../store/slices/ujianSlice';
+import { fetchUserData } from '../../../store/slices/userSlice';
 
 const Paket3 = () => {
+  const dispatch = useDispatch();
+  const { allSoal } = useSelector((state) => state.ujian);
+  const [ujianUserData, setUjianUserData] = useState([])
+  // console.log(userData)
 
-  const allSoal = useContext(QuestionContext).allSoal;
+  useEffect(() => {
+    dispatch(fetchAllSoal())
+    dispatch(fetchUserData())
+      .unwrap()
+      .then((data) => {
+        setUjianUserData(data.ujianSaya);
+      })
+  }, [])
+
   const allSoalCPNS = allSoal.filter((ujian) => ujian.type === 'CPNS' ) ;
   const setModalData = useContext(QuestionContext).setModalData;
   const modalData = useContext(QuestionContext).modalData;
-  const ujianSayaData = useContext(QuestionContext).ujianSayaData;
 
   const responsive = {
     superLargeDesktop: {
@@ -55,7 +69,7 @@ const Paket3 = () => {
         </div>
         <Carousel responsive={responsive} >
           {allSoalCPNS.map((ujian) => {
-            const exist = ujianSayaData.some((us) => us.ujianId === ujian.ujianId);
+            const exist = ujianUserData.some((us) => us.ujianId === ujian.ujianId);
 
             if (!exist) {
               return <div key={ujian.ujianId} className='border p-4 rounded-md mr-5 flex flex-col gap-3'>

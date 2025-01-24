@@ -2,14 +2,28 @@ import React, { useContext } from 'react'
 import document from '../icons/document.png';
 import clock from '../icons/clock.png'
 import { QuestionContext } from '../data/questions';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, fetchUserData } from '../store/slices/userSlice';
 
 
-const Modal = () => {
+const Modal = ({handleUpdateData}) => {
+  const dispatch = useDispatch();
   const modalData = useContext(QuestionContext).modalData;
   const setModalData = useContext(QuestionContext).setModalData;
-  const addToKeranjang = useContext(QuestionContext).addToKeranjang;
   
-  
+  const handleAddToCart = () => {
+    dispatch(addToCart(modalData.ujian))
+    .unwrap()
+    .then((data) => {
+      alert(data.message);
+      handleUpdateData();
+      setModalData({...modalData,modal:!modalData.modal}) 
+    })
+    .catch((err) => {
+      alert(err.message);
+    });
+  }
+
   return (
     <>
       <div className='fixed top-0 right-0 bottom-0 left-0 h-[100vh] w-[100vw] bg-gray-600/40 z-[10000] flex items-center' onClick={() => {setModalData({...modalData,modal:!modalData.modal})}}>
@@ -31,7 +45,7 @@ const Modal = () => {
               </div>
               <div className='w-full'>
                 <button className='w-full bg-[#35b486] hover:bg-[#268562] rounded-full p-2 font-bold text-white' 
-                onClick={() => {addToKeranjang(modalData.ujian)}}>+ Keranjang</button>
+                onClick={() => {handleAddToCart()}}>+ Keranjang</button>
               </div>
               <div className='bg-slate-300 w-full p-3 rounded-lg'>
                   <div className='flex items-center gap-3 mb-1'>

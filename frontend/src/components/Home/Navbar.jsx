@@ -6,21 +6,7 @@ import ujianlah from '../../images/Ujianlah-landscape.png'
 
 
 const Navbar = () => {
-  const keranjangData = useContext(QuestionContext).keranjangData;
-  const removeFromKeranjang = useContext(QuestionContext).removeFromKeranjang;
-  let totalHargaKeranjang = 0 ;
-
-  function handleCart() {
-    const cartLayer = document.getElementById('cart-layer');
-    
-    cartLayer.style.transform = 'translateX(0)';
-  }
-
-  function handleClose() {
-    const cartLayer = document.getElementById('cart-layer');
-
-    cartLayer.style.transform = 'translateX(1000px)'
-  }
+  
 
   return (
     <div className='w-full shadow-lg flex justify-between p-4 md:px-24 fixed gap-2 bg-white duration-500 z-[10000]'>
