@@ -5,16 +5,22 @@ import clock from '../../../icons/clock.png';
 import document from '../../../icons/document.png';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSoalLPDP } from '../../../store/slices/ujianSlice';
+import { fetchAllSoal, fetchSoalLPDP } from '../../../store/slices/ujianSlice';
 
 const paket1 = () => {
   const dispatch = useDispatch();
-  const {soalLPDP, loading} = useSelector((state) => state.ujian)
+  const { loading} = useSelector((state) => state.ujian)
+  const [allSoal, setAllSoal] = useState([])
+
   useEffect(() => {
-    dispatch(fetchSoalLPDP())
+    dispatch(fetchAllSoal())
+      .unwrap()
+      .then((data) => {
+        setAllSoal(data)
+      })
   }, [])
 
-  console.log(soalLPDP)
+  const soalLPDP = allSoal.filter((ujian) => ujian.type === 'LPDP');
 
   const responsive = {
     superLargeDesktop: {
