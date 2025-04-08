@@ -7,7 +7,7 @@ export const fetchUserData = createAsyncThunk(
   "user/fetchUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get("/getuserdata", {
+      const response = await axiosInstance.get("/api/user/getuserdata", {
         headers: {
           Accept:'application/form-data',
           'auth-token':`${localStorage.getItem('auth-token')}`,
@@ -25,7 +25,7 @@ export const addToCart = createAsyncThunk(
   "user/addToCart",
   async (ujian, {rejectWithValue}) => {
     try {
-      const response = await axiosInstance.post("/addtokeranjang", ujian, {
+      const response = await axiosInstance.post("/api/user/addtokeranjang", ujian, {
         headers: {
           Accept:"application/form-data",
           'auth-token':`${localStorage.getItem('auth-token')}`,
@@ -44,7 +44,7 @@ export const removeFromCart = createAsyncThunk(
   "user/removeFromCart",
   async (ujian, {rejectWithValue}) => {
     try {
-      const response = await axiosInstance.post("/removefromkeranjang", ujian, {
+      const response = await axiosInstance.post("/api/user/removefromkeranjang", ujian, {
         headers: {
           Accept:"application/form-data",
           'auth-token':`${localStorage.getItem('auth-token')}`,
@@ -63,7 +63,7 @@ export const toPayment = createAsyncThunk(
   "user/toPayment",
   async (_, {rejectWithValue}) => {
     try {
-      const response = await axiosInstance.post("/pembayaran", {},{
+      const response = await axiosInstance.post("/api/user/pembayaran", {},{
         headers: {
           Accept:"application/form-data",
           'auth-token':`${localStorage.getItem('auth-token')}`,
@@ -82,7 +82,7 @@ export const payment = createAsyncThunk(
   "user/payment",
   async (index, {rejectWithValue}) => {
     try {
-      const response = await axiosInstance.post("/bayar", {index:index},{
+      const response = await axiosInstance.post("/api/user/bayar", {index:index},{
         headers: {
           Accept:"application/form-data",
           'auth-token':`${localStorage.getItem('auth-token')}`,
@@ -101,7 +101,7 @@ export const cancelPayment = createAsyncThunk(
   "user/cancelPayment",
   async (index, {rejectWithValue}) => {
     try {
-      const response = await axiosInstance.post("batalbayar", {index:index}, {
+      const response = await axiosInstance.post("/api/user/batalbayar", {index:index}, {
         headers : {
           Accept:"application/form-data",
           'auth-token':`${localStorage.getItem('auth-token')}`,

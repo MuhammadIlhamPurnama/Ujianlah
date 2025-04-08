@@ -69,7 +69,7 @@ const Paket2 = () => {
         </div>
         <Carousel responsive={responsive} >
         {soalBUMN?.map((ujian) => {
-          const exist = ujianUserData.some((us) => us.ujianId === ujian.ujianId);
+          const exist = ujianUserData?.some((us) => us.ujianId === ujian.ujianId);
 
           if (!exist) {
             return <div key={ujian.ujianId} className='border p-4 rounded-md mr-5 flex flex-col gap-3'>

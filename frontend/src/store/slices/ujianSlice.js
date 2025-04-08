@@ -6,7 +6,7 @@ export const fetchAllSoal = createAsyncThunk(
   "ujian/allSoal",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get("/allsoal");
+      const response = await axiosInstance.get("/api/soal/allsoal");
       return response.data; 
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message); // Menangani error
@@ -18,7 +18,7 @@ export const fetchSoalLPDP = createAsyncThunk(
   "ujian/soalLPDP",
   async (_, {rejectWithValue}) => {
     try {
-      const response = await axiosInstance.get("/allsoal");
+      const response = await axiosInstance.get("/api/soal/allsoal");
 
       const soalLPDP = response.data.filter((ujian) => ujian.type === 'LPDP');
 
@@ -34,7 +34,7 @@ export const fetchSoalBUMN = createAsyncThunk(
   "ujian/soalBUMN",
   async (_, {rejectWithValue}) => {
     try {
-      const response = await axiosInstance.get("/allsoal");
+      const response = await axiosInstance.get("/api/soal/allsoal");
 
       const soalBUMN = response.data.filter((ujian) => ujian.type === 'BUMN');
 
@@ -50,7 +50,7 @@ export const fetchSoalCPNS = createAsyncThunk(
   "ujian/soalCPNS",
   async (_, {rejectWithValue}) => {
     try {
-      const response = await axiosInstance.get("/allsoal");
+      const response = await axiosInstance.get("/api/soal/allsoal");
 
       const soalCPNS = response.data.filter((ujian) => ujian.type === 'CPNS');
 
@@ -66,7 +66,7 @@ export const selesaiUjian = createAsyncThunk(
   'ujian/selesaiUjian',
   async (ujian, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post('/selesaiujian', {ujian}, {
+      const response = await axiosInstance.post('/api/user/selesaiujian', {ujian}, {
         headers: {
           Accept: 'application/form-data',
           'auth-token': localStorage.getItem('auth-token'),

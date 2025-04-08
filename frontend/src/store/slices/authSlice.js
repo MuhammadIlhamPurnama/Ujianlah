@@ -5,7 +5,7 @@ import { axiosInstance } from "../../lib/axios";
 export const login = (formData) => async (dispatch) => {
   dispatch(loginStart());
   try {
-    const response = await axiosInstance.post("/login", 
+    const response = await axiosInstance.post("api/auth/login", 
       formData,
     );
     console.log(response)
@@ -32,7 +32,7 @@ export const login = (formData) => async (dispatch) => {
 export const register = (formData) => async (dispatch) => {
   dispatch(loginStart());
   try {
-    const response = await axiosInstance.post("/signup", 
+    const response = await axiosInstance.post("api/auth/signup", 
       formData
     );
 

@@ -69,7 +69,7 @@ const Paket1 = () => {
         </div>
         <Carousel responsive={responsive} >
           {soalLPDP?.map((ujian) => {
-            const exist = ujianUserData.some((us) => ujian.ujianId === us.ujianId);
+            const exist = ujianUserData?.some((us) => ujian.ujianId === us.ujianId);
 
             if (!exist) {
               return <div key={ujian.ujianId} className='border p-4 rounded-md mr-5 flex flex-col gap-3'>
