@@ -7,8 +7,14 @@ const app = express();
 const port = process.env.PORT || 5000;
 const MDB_KEY = process.env.MDB_KEY;
 
+const corsOptions = {
+  origin: 'https://ujianlah.vercel.app', // your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Connect to MongoDB
 mongoose.connect(MDB_KEY)
