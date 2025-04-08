@@ -13,8 +13,8 @@ const corsOptions = {
   credentials: true
 };
 
-app.use(express.json());
 app.use(cors(corsOptions));
+app.use(express.json());
 
 // Connect to MongoDB
 mongoose.connect(MDB_KEY)
@@ -30,8 +30,8 @@ app.get('/', (req, res) => {
   res.send('Express is running (MVC structure)');
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
 
 module.exports = app; 
