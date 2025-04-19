@@ -2,13 +2,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const soalRoutes = require('./routes/soalRoutes');
 
 const app = express();
 const port = process.env.PORT || 5000;
 const MDB_KEY = process.env.MDB_KEY;
+const app_url = process.env.APP_URL;
 
 const corsOptions = {
-  origin: 'https://ujianlah.vercel.app', 
+  origin: app_url, 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 };
@@ -22,16 +26,13 @@ mongoose.connect(MDB_KEY)
   .catch(err => console.log(err));
 
 // Use routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/user', require('./routes/userRoutes'));
-app.use('/api/soal', require('./routes/soalRoutes'));
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/soal', soalRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Express is running (MVC structure)');
+  res.send('Express is running');
 });
 
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
 
 module.exports = app; 
