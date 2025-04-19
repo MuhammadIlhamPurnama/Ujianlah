@@ -9,10 +9,10 @@ const soalRoutes = require('./routes/soalRoutes');
 const app = express();
 const port = process.env.PORT || 5000;
 const MDB_KEY = process.env.MDB_KEY;
-const app_url = process.env.APP_URL;
+const app_url = process.env.APP_URL || '*';
 
 const corsOptions = {
-  origin: app_url, 
+  origin: '*', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 };
