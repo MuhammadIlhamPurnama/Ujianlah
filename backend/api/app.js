@@ -12,9 +12,7 @@ const MDB_KEY = process.env.MDB_KEY;
 const app_url = process.env.APP_URL || '*';
 
 const corsOptions = {
-  origin: '*', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
+  origin: app_url
 };
 
 app.use(cors(corsOptions));
